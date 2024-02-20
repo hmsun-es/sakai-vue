@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import RadioButton from 'primevue/radiobutton';
 import Button from 'primevue/button';
 import InputSwitch from 'primevue/inputswitch';
