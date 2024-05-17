@@ -4,27 +4,27 @@
 
 **Migration Guide**
 
--   Update theme files.
+- Update theme files.
 
 **Implemented New Features and Enhancements**
 
--   Upgrade to PrimeVue 3.39.0
+- Upgrade to PrimeVue 3.39.0
 
 ## 3.8.0 (2023-07-24)
 
 **Migration Guide**
 
--   Update theme files.
--   Update assets style files
--   Remove code highlight
+- Update theme files.
+- Update assets style files
+- Remove code highlight
 
 **Implemented New Features and Enhancements**
 
--   Upgrade to PrimeVue 3.30.2
+- Upgrade to PrimeVue 3.30.2
 
 ## 3.7.0 (2023-05-06)
 
--   Upgrade to PrimeVue 3.28.0
+- Upgrade to PrimeVue 3.28.0
 
 **Implemented New Features and Enhancements**
 
@@ -32,5 +32,5 @@
 
 **Implemented New Features and Enhancements**
 
--   Upgrade to PrimeVue 3.26.1
--   Upgrade to vite 4.2.1
+- Upgrade to PrimeVue 3.26.1
+- Upgrade to vite 4.2.1

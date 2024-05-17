@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { useLayout } from '@/layout/composables/layout'
-import { ref, computed } from 'vue'
-import AppConfig from '@/layout/AppConfig.vue'
+import { useLayout } from "@/layout/composables/layout";
+import { ref, computed } from "vue";
+import AppConfig from "@/layout/AppConfig.vue";
 
-const { layoutConfig } = useLayout()
-const email = ref('')
-const password = ref('')
-const checked = ref(false)
+const { layoutConfig } = useLayout();
+const email = ref("");
+const password = ref("");
+const checked = ref(false);
 
 const logoUrl = computed(() => {
-  return `/layout/images/${layoutConfig.darkTheme.value ? 'logo-white' : 'logo-dark'}.svg`
-})
+  return `/layout/images/${layoutConfig.darkTheme.value ? "logo-white" : "logo-dark"}.svg`;
+});
 </script>
 
 <template>
