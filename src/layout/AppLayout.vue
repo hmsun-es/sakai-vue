@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { computed, watch, ref } from "vue";
-import AppTopbar from "./AppTopbar.vue";
-import AppFooter from "./AppFooter.vue";
-import AppSidebar from "./AppSidebar.vue";
-import AppConfig from "./AppConfig.vue";
-import { useLayout } from "@/layout/composables/layout";
+import { computed, watch, ref } from "vue"
+import AppTopbar from "./AppTopbar.vue"
+import AppFooter from "./AppFooter.vue"
+import AppSidebar from "./AppSidebar.vue"
+import AppConfig from "./AppConfig.vue"
+import { useLayout } from "@/layout/composables/layout"
 
-const { layoutConfig, layoutState, isSidebarActive } = useLayout();
+const { layoutConfig, layoutState, isSidebarActive } = useLayout()
 
-const outsideClickListener = ref(null);
+const outsideClickListener = ref<((this: Document, ev: MouseEvent) => any) | null>()
 
 watch(isSidebarActive, (newVal) => {
   if (newVal) {
-    bindOutsideClickListener();
+    bindOutsideClickListener()
   } else {
-    unbindOutsideClickListener();
+    unbindOutsideClickListener()
   }
-});
+})
 
 const containerClass = computed(() => {
   return {
@@ -29,37 +29,37 @@ const containerClass = computed(() => {
     "layout-mobile-active": layoutState.staticMenuMobileActive.value,
     "p-input-filled": layoutConfig.inputStyle.value === "filled",
     "p-ripple-disabled": !layoutConfig.ripple.value,
-  };
-});
+  }
+})
 const bindOutsideClickListener = () => {
   if (!outsideClickListener.value) {
-    outsideClickListener.value = (event) => {
+    outsideClickListener.value = (event: Event) => {
       if (isOutsideClicked(event)) {
-        layoutState.overlayMenuActive.value = false;
-        layoutState.staticMenuMobileActive.value = false;
-        layoutState.menuHoverActive.value = false;
+        layoutState.overlayMenuActive.value = false
+        layoutState.staticMenuMobileActive.value = false
+        layoutState.menuHoverActive.value = false
       }
-    };
-    document.addEventListener("click", outsideClickListener.value);
+    }
+    document.addEventListener("click", outsideClickListener.value)
   }
-};
+}
 const unbindOutsideClickListener = () => {
   if (outsideClickListener.value) {
-    document.removeEventListener("click", outsideClickListener);
-    outsideClickListener.value = null;
+    document.removeEventListener("click", outsideClickListener.value)
+    outsideClickListener.value = null
   }
-};
-const isOutsideClicked = (event) => {
-  const sidebarEl = document.querySelector(".layout-sidebar");
-  const topbarEl = document.querySelector(".layout-menu-button");
+}
+const isOutsideClicked = (event: Event) => {
+  const sidebarEl = document.querySelector(".layout-sidebar")
+  const topbarEl = document.querySelector(".layout-menu-button")
 
   return !(
-    sidebarEl.isSameNode(event.target) ||
-    sidebarEl.contains(event.target) ||
-    topbarEl.isSameNode(event.target) ||
-    topbarEl.contains(event.target)
-  );
-};
+    sidebarEl?.isSameNode(event.target as Node) ||
+    sidebarEl?.contains(event.target as Node) ||
+    topbarEl?.isSameNode(event.target as Node) ||
+    topbarEl?.contains(event.target as Node)
+  )
+}
 </script>
 
 <template>

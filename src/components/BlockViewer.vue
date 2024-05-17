@@ -25,12 +25,12 @@ const BlockView = reactive({
 });
 const blockView = ref(0);
 
-function activateView(event, blockViewValue) {
+function activateView(event: Event, blockViewValue: number) {
   blockView.value = blockViewValue;
   event.preventDefault();
 }
 
-async function copyCode(event) {
+async function copyCode(event: Event) {
   await navigator.clipboard.writeText(props.code);
   event.preventDefault();
 }

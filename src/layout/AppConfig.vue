@@ -21,19 +21,22 @@ const { changeThemeSettings, setScale, layoutConfig } = useLayout()
 const onConfigButtonClick = () => {
   visible.value = !visible.value
 }
-const onChangeTheme = (theme, mode) => {
+const onChangeTheme = (theme: any, mode: any) => {
   const elementId = "theme-css"
-  const linkElement = document.getElementById(elementId)
-  const cloneLinkElement = linkElement.cloneNode(true)
-  const newThemeUrl = linkElement.getAttribute("href").replace(layoutConfig.theme.value, theme)
-  cloneLinkElement.setAttribute("id", elementId + "-clone")
-  cloneLinkElement.setAttribute("href", newThemeUrl)
-  cloneLinkElement.addEventListener("load", () => {
-    linkElement.remove()
-    cloneLinkElement.setAttribute("id", elementId)
-    changeThemeSettings(theme, mode === "dark")
-  })
-  linkElement.parentNode.insertBefore(cloneLinkElement, linkElement.nextSibling)
+  const linkElement = document.getElementById(elementId) as HTMLElement
+  const cloneLinkElement = linkElement.cloneNode(true) as HTMLElement
+  const newThemeUrl = linkElement.getAttribute("href")?.replace(layoutConfig.theme.value, theme) ?? null
+
+  if (cloneLinkElement !== null && newThemeUrl !== null) {
+    cloneLinkElement.setAttribute("id", elementId + "-clone")
+    cloneLinkElement.setAttribute("href", newThemeUrl)
+    cloneLinkElement.addEventListener("load", () => {
+      linkElement.remove()
+      cloneLinkElement.setAttribute("id", elementId)
+      changeThemeSettings(theme, mode === "dark")
+    })
+    linkElement.parentNode?.insertBefore(cloneLinkElement, linkElement.nextSibling)
+  }
 }
 const decrementScale = () => {
   setScale(layoutConfig.scale.value - 1)

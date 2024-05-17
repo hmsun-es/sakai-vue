@@ -1,6 +1,6 @@
 import { toRefs, reactive, computed } from "vue"
 
-const layoutConfig = reactive({
+const layoutConfig = reactive<LayoutConfig>({
   ripple: false,
   darkTheme: false,
   inputStyle: "outlined",
@@ -29,8 +29,8 @@ export function useLayout() {
     layoutConfig.scale = scale
   }
 
-  const setActiveMenuItem = (item: any) => {
-    layoutConfig.activeMenuItem = item.value || item
+  const setActiveMenuItem = (item: MenuItem) => {
+    layoutConfig.activeMenuItem = item
   }
 
   const onMenuToggle = () => {
