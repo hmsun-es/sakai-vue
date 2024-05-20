@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from "vue"
+import { computed, ref } from "vue"
 import { useRoute } from "vue-router"
 import { useLayout } from "@/layout/composables/layout"
 import type { AppMenuItemProps } from "@/models/exports"
@@ -12,18 +12,10 @@ const props = withDefaults(defineProps<AppMenuItemProps>(), {
   item: () => ({ label: "" }),
   index: 0,
   root: true,
-  parentItemKey: null,
 })
 
-const isActiveMenu = ref(false)
-const itemKey = ref("")
+const isActiveMenu = computed(() => layoutConfig.activeMenuItem.value === props.item)
 
-watch(
-  () => layoutConfig.activeMenuItem.value,
-  (newVal) => {
-    isActiveMenu.value = newVal === itemKey.value || newVal.startsWith(itemKey.value + "-")
-  },
-)
 const itemClick = (event: Event, item: MenuItem) => {
   if (item.disabled) {
     event.preventDefault()
@@ -40,9 +32,7 @@ const itemClick = (event: Event, item: MenuItem) => {
     item.command({ originalEvent: event, item: item })
   }
 
-  const foundItemKey = item.items ? (isActiveMenu.value ? props.parentItemKey : itemKey) : itemKey.value
-
-  setActiveMenuItem(foundItemKey)
+  setActiveMenuItem(item)
 }
 
 const checkActiveRoute = (item: MenuItem) => {
@@ -66,7 +56,7 @@ const checkActiveRoute = (item: MenuItem) => {
       <i class="pi pi-fw pi-angle-down layout-submenu-toggler" v-if="item.items"></i>
     </a>
     <router-link
-      v-if="item.to && !item.items && item.visible !== undefined && item.visible !== false"
+      v-if="item.to && !item.items && item.visible !== false"
       @click="itemClick($event, item as MenuItem)"
       :class="[item.class, { 'active-route': checkActiveRoute(item) }]"
       tabindex="0"
@@ -78,7 +68,7 @@ const checkActiveRoute = (item: MenuItem) => {
     </router-link>
     <Transition v-if="item.items && item.visible !== false" name="layout-submenu">
       <ul v-show="root ? true : isActiveMenu" class="layout-submenu">
-        <app-menu-item v-for="(child, i) in item.items" :key="i" :index="i" :item="child" :parentItemKey="itemKey" :root="root"></app-menu-item>
+        <app-menu-item v-for="(child, i) in item.items" :key="i" :index="i" :item="child" :root="false"></app-menu-item>
       </ul>
     </Transition>
   </li>
