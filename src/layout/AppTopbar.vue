@@ -1,68 +1,79 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount } from "vue";
-import { useLayout } from "@/layout/composables/layout";
-import { useRouter } from "vue-router";
+import { ref, computed, onMounted, onBeforeUnmount } from "vue"
+import { useLayout } from "@/layout/composables/layout"
+import { useRouter } from "vue-router"
 
-const { layoutConfig, onMenuToggle } = useLayout();
+const { layoutConfig, onMenuToggle } = useLayout()
 
-const outsideClickListener = ref(null);
-const topbarMenuActive = ref(false);
-const router = useRouter();
+const outsideClickListener = ref<((this: Document, ev: MouseEvent) => any) | null>()
+const topbarMenuActive = ref(false)
+const router = useRouter()
+const hasContrastTheme = computed(() => layoutConfig.darkTheme.value)
 
 onMounted(() => {
-  bindOutsideClickListener();
-});
+  bindOutsideClickListener()
+})
 
 onBeforeUnmount(() => {
-  unbindOutsideClickListener();
-});
+  unbindOutsideClickListener()
+})
 
 const logoUrl = computed(() => {
-  return `/layout/images/${layoutConfig.darkTheme.value ? "logo-white" : "logo-dark"}.svg`;
-});
+  return `/layout/images/${layoutConfig.darkTheme.value ? "logo-white" : "logo-dark"}.svg`
+})
 
 const onTopBarMenuButton = () => {
-  topbarMenuActive.value = !topbarMenuActive.value;
-};
+  topbarMenuActive.value = !topbarMenuActive.value
+}
 const onSettingsClick = () => {
-  topbarMenuActive.value = false;
-  router.push("/documentation");
-};
+  topbarMenuActive.value = false
+  router.push("/documentation")
+}
 const topbarMenuClasses = computed(() => {
   return {
     "layout-topbar-menu-mobile-active": topbarMenuActive.value,
-  };
-});
+  }
+})
 
 const bindOutsideClickListener = () => {
   if (!outsideClickListener.value) {
     outsideClickListener.value = (event) => {
       if (isOutsideClicked(event)) {
-        topbarMenuActive.value = false;
+        topbarMenuActive.value = false
       }
-    };
-    document.addEventListener("click", outsideClickListener.value);
+    }
+    document.addEventListener("click", outsideClickListener.value)
   }
-};
+}
 const unbindOutsideClickListener = () => {
   if (outsideClickListener.value) {
-    document.removeEventListener("click", outsideClickListener);
-    outsideClickListener.value = null;
+    document.removeEventListener("click", outsideClickListener.value)
+    outsideClickListener.value = null
   }
-};
-const isOutsideClicked = (event) => {
-  if (!topbarMenuActive.value) return;
+}
+const isOutsideClicked = (event: Event) => {
+  if (!topbarMenuActive.value) return
 
-  const sidebarEl = document.querySelector(".layout-topbar-menu");
-  const topbarEl = document.querySelector(".layout-topbar-menu-button");
+  const sidebarEl = document.querySelector(".layout-topbar-menu")
+  const topbarEl = document.querySelector(".layout-topbar-menu-button")
 
-  return !(
-    sidebarEl.isSameNode(event.target) ||
-    sidebarEl.contains(event.target) ||
-    topbarEl.isSameNode(event.target) ||
-    topbarEl.contains(event.target)
-  );
-};
+  if (event.target instanceof Element) {
+    return !(
+      sidebarEl?.isSameNode(event.target) ||
+      sidebarEl?.contains(event.target) ||
+      topbarEl?.isSameNode(event.target) ||
+      topbarEl?.contains(event.target)
+    )
+  } else {
+    return false
+  }
+}
+
+function toggleThemeContrast() {
+  layoutConfig.darkTheme.value = !layoutConfig.darkTheme.value
+  layoutConfig.theme.value = layoutConfig.darkTheme.value ? "arya-orange" : "saga-orange"
+  localStorage.setItem("layout-config", JSON.stringify(layoutConfig))
+}
 </script>
 
 <template>
@@ -89,8 +100,8 @@ const isOutsideClicked = (event) => {
         <i class="pi pi-user"></i>
         <span>Profile</span>
       </button>
-      <button @click="onSettingsClick()" class="p-link layout-topbar-button">
-        <i class="pi pi-cog"></i>
+      <button @click="toggleThemeContrast()" class="p-link layout-topbar-button">
+        <i class="pi" :class="{ 'pi-sun': !hasContrastTheme, 'pi-moon': hasContrastTheme }"></i>
         <span>Settings</span>
       </button>
     </div>

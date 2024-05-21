@@ -19,7 +19,7 @@ type LayoutConfig = {
   darkTheme: boolean
   inputStyle: string
   menuMode: string
-  theme: string
+  theme: "saga-orange" | "arya-orange"
   scale: number
   activeMenuItem: MenuItem | null
 }
