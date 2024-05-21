@@ -1,3 +1,4 @@
+import { Theme, type LayoutConfig, type MenuItem } from "@/models"
 import { toRefs, reactive, computed } from "vue"
 
 const layoutConfig = reactive<LayoutConfig>({
@@ -5,7 +6,7 @@ const layoutConfig = reactive<LayoutConfig>({
   darkTheme: false,
   inputStyle: "outlined",
   menuMode: "static",
-  theme: "saga-orange",
+  theme: Theme.SAGA_ORANGE,
   scale: 14,
   activeMenuItem: null,
 })

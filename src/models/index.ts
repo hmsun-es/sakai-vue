@@ -1,4 +1,4 @@
-type MenuItem = {
+export type MenuItem = {
   label: string
   separator?: boolean
   items?: MenuItem[]
@@ -14,12 +14,74 @@ type MenuItem = {
   command?: (params: { originalEvent: Event; item: MenuItem }) => void
 }
 
-type LayoutConfig = {
+export type LayoutConfig = {
   ripple: boolean
   darkTheme: boolean
   inputStyle: string
-  menuMode: string
-  theme: "saga-orange" | "arya-orange"
+  menuMode: "overlay" | "static"
+  theme: Theme
   scale: number
   activeMenuItem: MenuItem | null
+}
+
+export type AppMenuItemProps = {
+  item: MenuItem
+  index: number
+  root: boolean
+}
+
+export enum Theme {
+  SAGA_ORANGE = "saga-orange",
+  ARYA_ORANGE = "arya-orange",
+}
+
+export enum ContrastMode {
+  DARK = "dark",
+  LIGHT = "light",
+}
+
+export interface ExhibitionTeam {}
+
+export interface LoginUser {
+  id: string
+  email: string
+  name: string
+  role: string
+  avatar: string
+  status: string
+}
+
+export class Administrator implements LoginUser {
+  constructor(
+    public id: string,
+    public email: string,
+    public name: string,
+    public role: string,
+    public avatar: string,
+    public status: string,
+  ) {}
+}
+
+export class ExhibitionManager implements LoginUser {
+  constructor(
+    public id: string,
+    public email: string,
+    public name: string,
+    public role: string,
+    public avatar: string,
+    public status: string,
+  ) {}
+}
+
+export class ExhibitionAdmin extends ExhibitionManager {}
+
+export class SiteStaff implements LoginUser {
+  constructor(
+    public id: string,
+    public email: string,
+    public name: string,
+    public role: string,
+    public avatar: string,
+    public status: string,
+  ) {}
 }

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, ref } from "vue"
+import { computed } from "vue"
 import { useRoute } from "vue-router"
 import { useLayout } from "@/layout/composables/layout"
-import type { AppMenuItemProps } from "@/models/exports"
+import type { AppMenuItemProps, MenuItem } from "@/models"
 
 const route = useRoute()
 

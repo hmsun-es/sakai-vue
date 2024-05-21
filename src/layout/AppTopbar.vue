@@ -2,8 +2,9 @@
 import { ref, computed, onMounted, onBeforeUnmount } from "vue"
 import { useLayout } from "@/layout/composables/layout"
 import { useRouter } from "vue-router"
+import { ContrastMode, Theme } from "@/models"
 
-const { layoutConfig, onMenuToggle } = useLayout()
+const { changeThemeSettings, layoutConfig, onMenuToggle } = useLayout()
 
 const outsideClickListener = ref<((this: Document, ev: MouseEvent) => any) | null>()
 const topbarMenuActive = ref(false)
@@ -18,16 +19,10 @@ onBeforeUnmount(() => {
   unbindOutsideClickListener()
 })
 
-const logoUrl = computed(() => {
-  return `/layout/images/${layoutConfig.darkTheme.value ? "logo-white" : "logo-dark"}.svg`
-})
+const logoUrl = "/layout/images/logo.png"
 
 const onTopBarMenuButton = () => {
   topbarMenuActive.value = !topbarMenuActive.value
-}
-const onSettingsClick = () => {
-  topbarMenuActive.value = false
-  router.push("/documentation")
 }
 const topbarMenuClasses = computed(() => {
   return {
@@ -70,9 +65,28 @@ const isOutsideClicked = (event: Event) => {
 }
 
 function toggleThemeContrast() {
-  layoutConfig.darkTheme.value = !layoutConfig.darkTheme.value
-  layoutConfig.theme.value = layoutConfig.darkTheme.value ? "arya-orange" : "saga-orange"
-  localStorage.setItem("layout-config", JSON.stringify(layoutConfig))
+  const toBeTheme = layoutConfig.theme.value === Theme.SAGA_ORANGE ? Theme.ARYA_ORANGE : Theme.SAGA_ORANGE
+  const isDarkTheme = toBeTheme === Theme.ARYA_ORANGE ? ContrastMode.DARK : ContrastMode.LIGHT
+  onChangeTheme(toBeTheme, isDarkTheme)
+  // localStorage.setItem("layout-config", JSON.stringify(layoutConfig))
+}
+
+const onChangeTheme = (theme: Theme, mode: ContrastMode) => {
+  const elementId = "theme-css"
+  const linkElement = document.getElementById(elementId) as HTMLElement
+  const cloneLinkElement = linkElement.cloneNode(true) as HTMLElement
+  const newThemeUrl = linkElement.getAttribute("href")?.replace(layoutConfig.theme.value, theme) ?? null
+
+  if (cloneLinkElement !== null && newThemeUrl !== null) {
+    cloneLinkElement.setAttribute("id", elementId + "-clone")
+    cloneLinkElement.setAttribute("href", newThemeUrl)
+    cloneLinkElement.addEventListener("load", () => {
+      linkElement.remove()
+      cloneLinkElement.setAttribute("id", elementId)
+      changeThemeSettings(theme, mode === ContrastMode.DARK)
+    })
+    linkElement.parentNode?.insertBefore(cloneLinkElement, linkElement.nextSibling)
+  }
 }
 </script>
 
@@ -80,7 +94,7 @@ function toggleThemeContrast() {
   <div class="layout-topbar">
     <router-link to="/" class="layout-topbar-logo">
       <img :src="logoUrl" alt="logo" />
-      <span>SAKAI</span>
+      <span>ENTRANCE SYSTEM</span>
     </router-link>
 
     <button class="p-link layout-menu-button layout-topbar-button" @click="onMenuToggle()">
