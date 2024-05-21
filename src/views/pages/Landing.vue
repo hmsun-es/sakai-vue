@@ -1,19 +1,17 @@
 <script setup lang="ts">
-import { useLayout } from "@/layout/composables/layout";
-import { computed } from "vue";
-import AppConfig from "@/layout/AppConfig.vue";
+import { useLayout } from "@/layout/composables/layout"
+import { computed } from "vue"
+import AppConfig from "@/layout/AppConfig.vue"
 
-const { layoutConfig } = useLayout();
+const { layoutConfig } = useLayout()
 
 const smoothScroll = (id) => {
   document.querySelector(id).scrollIntoView({
     behavior: "smooth",
-  });
-};
+  })
+}
 
-const logoUrl = computed(() => {
-  return `/layout/images/${layoutConfig.darkTheme.value ? "logo-white" : "logo-dark"}.svg`;
-});
+const logoUrl = "/layout/images/logo.png"
 </script>
 
 <template>

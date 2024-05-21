@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import Button from "primevue/button"
+import { ref } from "vue"
 
 const items = ref([
   {
@@ -17,14 +18,14 @@ const items = ref([
     label: "Home",
     icon: "pi pi-home",
   },
-]);
+])
 
-const loading = ref([false, false, false]);
+const loading = ref([false, false, false])
 
-const load = (index) => {
-  loading.value[index] = true;
-  setTimeout(() => (loading.value[index] = false), 1000);
-};
+const load = (index: any) => {
+  loading.value[index] = true
+  setTimeout(() => (loading.value[index] = false), 1000)
+}
 </script>
 
 <template>

@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router"
 import AppLayout from "@/layout/AppLayout.vue"
 import { sampleRoutes } from "./sample"
+import { visRoutes } from "./vis"
 
 const router = createRouter({
   history: createWebHistory(),
@@ -15,6 +16,7 @@ const router = createRouter({
           component: () => import("@/views/Dashboard.vue"),
         },
         ...sampleRoutes,
+        ...visRoutes,
       ],
     },
     {
