@@ -30,7 +30,7 @@ export function useLayout() {
     layoutConfig.scale = scale
   }
 
-  const setActiveMenuItem = (item: MenuItem) => {
+  const setActiveMenuItem = (item: MenuItem | null) => {
     layoutConfig.activeMenuItem = item
   }
 

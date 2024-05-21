@@ -32,7 +32,7 @@ const itemClick = (event: Event, item: MenuItem) => {
     item.command({ originalEvent: event, item: item })
   }
 
-  setActiveMenuItem(item)
+  setActiveMenuItem(isActiveMenu.value ? null : item)
 }
 
 const checkActiveRoute = (item: MenuItem) => {

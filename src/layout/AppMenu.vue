@@ -2,13 +2,17 @@
 import { ref } from "vue"
 
 import AppMenuItem from "./AppMenuItem.vue"
-import type { MenuItem } from "primevue/menuitem"
+import { MenuService } from "@/service/MenuService"
+import { Administrator, type MenuItem } from "@/models"
+
+const dummyUser = new Administrator("", "", "", "", "", "")
+const menuService = new MenuService(dummyUser)
 
 const model = ref<MenuItem[]>([
   {
     separator: false,
-    label: "Home",
-    items: [{ label: "Dashboard", icon: "pi pi-fw pi-home", to: "/" }],
+    label: "Messe Entrance System",
+    items: [{ label: "대시보드", icon: "pi pi-fw pi-home", to: "/" }, ...menuService.getMenuItems()],
   },
   {
     label: "Samples",
