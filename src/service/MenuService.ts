@@ -20,6 +20,11 @@ const allMenuItems: MenuItem[] = [
         icon: "pi pi-ticket",
         to: "/exhibition/tickets",
       },
+      {
+        label: "전시회 구분 관리",
+        icon: "pi pi-cog",
+        to: "/exhibition/classes",
+      },
     ],
   },
   {

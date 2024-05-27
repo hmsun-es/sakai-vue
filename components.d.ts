@@ -24,6 +24,8 @@ declare module 'vue' {
     Column: typeof import('primevue/column')['default']
     ContextMenu: typeof import('primevue/contextmenu')['default']
     DataTable: typeof import('primevue/datatable')['default']
+    DataView: typeof import('primevue/dataview')['default']
+    DataViewLayoutOptions: typeof import('primevue/dataviewlayoutoptions')['default']
     Dialog: typeof import('primevue/dialog')['default']
     Divider: typeof import('primevue/divider')['default']
     Dropdown: typeof import('primevue/dropdown')['default']
@@ -38,9 +40,11 @@ declare module 'vue' {
     Menu: typeof import('primevue/menu')['default']
     Menubar: typeof import('primevue/menubar')['default']
     MultiSelect: typeof import('primevue/multiselect')['default']
+    OrderList: typeof import('primevue/orderlist')['default']
     OverlayPanel: typeof import('primevue/overlaypanel')['default']
     PanelMenu: typeof import('primevue/panelmenu')['default']
     Password: typeof import('primevue/password')['default']
+    PickList: typeof import('primevue/picklist')['default']
     ProgressBar: typeof import('primevue/progressbar')['default']
     RadioButton: typeof import('primevue/radiobutton')['default']
     Rating: typeof import('primevue/rating')['default']
@@ -61,5 +65,6 @@ declare module 'vue' {
     ToggleButton: typeof import('primevue/togglebutton')['default']
     Toolbar: typeof import('primevue/toolbar')['default']
     TreeSelect: typeof import('primevue/treeselect')['default']
+    TriStateCheckbox: typeof import('primevue/tristatecheckbox')['default']
   }
 }

@@ -70,6 +70,7 @@ export class ExhibitionManager implements LoginUser {
     public role: string,
     public avatar: string,
     public status: string,
+    public organization: Organization,
   ) {}
 }
 
@@ -84,4 +85,18 @@ export class SiteStaff implements LoginUser {
     public avatar: string,
     public status: string,
   ) {}
+}
+
+export interface Organization {
+  name: string
+}
+
+export interface ExhibitionClass {
+  name: string
+  slug: string
+  organization: Organization
+}
+
+export interface Exhibition {
+  name: string
 }

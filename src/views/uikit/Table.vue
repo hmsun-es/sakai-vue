@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { FilterMatchMode, FilterOperator } from "primevue/api";
-import CustomerService from "@/service/CustomerService";
-import ProductService from "@/service/ProductService";
-import { ref, onBeforeMount } from "vue";
+import { FilterMatchMode, FilterOperator } from "primevue/api"
+import CustomerService from "@/service/samples/CustomerService"
+import ProductService from "@/service/samples/ProductService"
+import { ref, onBeforeMount } from "vue"
 
-const customer1 = ref(null);
-const customer2 = ref(null);
-const customer3 = ref(null);
-const filters1 = ref(null);
-const loading1 = ref(null);
-const loading2 = ref(null);
-const idFrozen = ref(false);
-const products = ref(null);
-const expandedRows = ref([]);
-const statuses = ref(["unqualified", "qualified", "new", "negotiation", "renewal", "proposal"]);
+const customer1 = ref(null)
+const customer2 = ref(null)
+const customer3 = ref(null)
+const filters1 = ref(null)
+const loading1 = ref(null)
+const loading2 = ref(null)
+const idFrozen = ref(false)
+const products = ref(null)
+const expandedRows = ref([])
+const statuses = ref(["unqualified", "qualified", "new", "negotiation", "renewal", "proposal"])
 const representatives = ref([
   { name: "Amy Elsner", image: "amyelsner.png" },
   { name: "Anna Fali", image: "annafali.png" },
@@ -25,24 +25,24 @@ const representatives = ref([
   { name: "Onyama Limba", image: "onyamalimba.png" },
   { name: "Stephen Shaw", image: "stephenshaw.png" },
   { name: "XuXue Feng", image: "xuxuefeng.png" },
-]);
+])
 
-const customerService = new CustomerService();
-const productService = new ProductService();
+const customerService = new CustomerService()
+const productService = new ProductService()
 
 onBeforeMount(() => {
-  productService.getProductsWithOrdersSmall().then((data) => (products.value = data));
+  productService.getProductsWithOrdersSmall().then((data) => (products.value = data))
   customerService.getCustomersLarge().then((data) => {
-    customer1.value = data;
-    loading1.value = false;
-    customer1.value.forEach((customer) => (customer.date = new Date(customer.date)));
-  });
-  customerService.getCustomersLarge().then((data) => (customer2.value = data));
-  customerService.getCustomersMedium().then((data) => (customer3.value = data));
-  loading2.value = false;
+    customer1.value = data
+    loading1.value = false
+    customer1.value.forEach((customer) => (customer.date = new Date(customer.date)))
+  })
+  customerService.getCustomersLarge().then((data) => (customer2.value = data))
+  customerService.getCustomersMedium().then((data) => (customer3.value = data))
+  loading2.value = false
 
-  initFilters1();
-});
+  initFilters1()
+})
 
 const initFilters1 = () => {
   filters1.value = {
@@ -55,41 +55,41 @@ const initFilters1 = () => {
     status: { operator: FilterOperator.OR, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] },
     activity: { value: [0, 50], matchMode: FilterMatchMode.BETWEEN },
     verified: { value: null, matchMode: FilterMatchMode.EQUALS },
-  };
-};
+  }
+}
 
 const clearFilter1 = () => {
-  initFilters1();
-};
+  initFilters1()
+}
 const expandAll = () => {
-  expandedRows.value = products.value.filter((p) => p.id);
-};
+  expandedRows.value = products.value.filter((p) => p.id)
+}
 const collapseAll = () => {
-  expandedRows.value = null;
-};
+  expandedRows.value = null
+}
 const formatCurrency = (value) => {
-  return value.toLocaleString("en-US", { style: "currency", currency: "USD" });
-};
+  return value.toLocaleString("en-US", { style: "currency", currency: "USD" })
+}
 
 const formatDate = (value) => {
   return value.toLocaleDateString("en-US", {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
-  });
-};
+  })
+}
 const calculateCustomerTotal = (name) => {
-  let total = 0;
+  let total = 0
   if (customer3.value) {
     for (let customer of customer3.value) {
       if (customer.representative.name === name) {
-        total++;
+        total++
       }
     }
   }
 
-  return total;
-};
+  return total
+}
 </script>
 
 <template>

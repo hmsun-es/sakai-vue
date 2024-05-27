@@ -1,26 +1,8 @@
 <template>
   <div class="form-basic-contents">
     <div class="card">
-      <h1>전시회 관리</h1>
+      <h1>전시회 구분 관리</h1>
 
-      <div class="formgrid grid">
-        <div class="field col-12 md:col-4 lg:col-3 pt-2">
-          <span class="p-float-label">
-            <InputText id="fairName" v-model="filters.exhibitionName" class="w-12"></InputText>
-            <label for="fairName">전시회명</label>
-          </span>
-        </div>
-        <div class="field col-12 md:col-4 lg:col-3 pt-2">
-          <span class="p-float-label">
-            <InputText id="firstname2" v-model="filters.exhibitionName" class="w-12"></InputText>
-            <label for="firstname2">전시회명</label>
-          </span>
-        </div>
-      </div>
-
-      <Button class="mr-2" label="검색" icon="pi pi-search" @click="search"></Button>
-    </div>
-    <div class="card">
       <div class="flex">
         <Button severity="success" label="전시회 등록" icon="pi pi-plus"></Button>
       </div>

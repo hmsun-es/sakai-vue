@@ -32,6 +32,10 @@ export const visRoutes = [
     component: () => import("@/views/backoffice/exhibition/ExhibitionTickets.vue"),
   },
   {
+    path: "/exhibition/classes",
+    component: () => import("@/views/backoffice/exhibition/ExhibitionClassManagement.vue"),
+  },
+  {
     path: "/organization/admin",
     component: () => import("@/views/backoffice/organization/OrganizationAdminManagement.vue"),
   },

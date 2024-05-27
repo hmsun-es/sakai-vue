@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import ProductService from "@/service/ProductService";
-import PhotoService from "@/service/PhotoService";
-import { ref, onMounted } from "vue";
+import ProductService from "@/service/samples/ProductService"
+import PhotoService from "@/service/samples/PhotoService"
+import { ref, onMounted } from "vue"
 
-const products = ref([]);
-const images = ref([]);
+const products = ref([])
+const images = ref([])
 const galleriaResponsiveOptions = ref([
   {
     breakpoint: "1024px",
@@ -22,7 +22,7 @@ const galleriaResponsiveOptions = ref([
     breakpoint: "560px",
     numVisible: 1,
   },
-]);
+])
 const carouselResponsiveOptions = ref([
   {
     breakpoint: "1024px",
@@ -39,15 +39,15 @@ const carouselResponsiveOptions = ref([
     numVisible: 1,
     numScroll: 1,
   },
-]);
+])
 
-const productService = new ProductService();
-const photoService = new PhotoService();
+const productService = new ProductService()
+const photoService = new PhotoService()
 
 onMounted(() => {
-  productService.getProductsSmall().then((data) => (products.value = data));
-  photoService.getImages().then((data) => (images.value = data));
-});
+  productService.getProductsSmall().then((data) => (products.value = data))
+  photoService.getImages().then((data) => (images.value = data))
+})
 </script>
 
 <template>
